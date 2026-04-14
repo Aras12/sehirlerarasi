@@ -23,12 +23,8 @@ export default function TabArticles() {
               zamanında ve hasarsız teslim ediyoruz.
             </p>
             <p>
-              Adana şehirler arası nakliyat,{' '}
-              <Link href="/hizmetler/evden-eve-nakliyat" className="text-primary-600 hover:text-accent-600 underline decoration-primary-300">evden eve nakliyat</Link>,{' '}
-              <Link href="/hizmetler/asansorlu-tasima" className="text-primary-600 hover:text-accent-600 underline decoration-primary-300">asansörlü taşımacılık</Link>,{' '}
-              <Link href="/hizmetler/kamyonet-nakliye" className="text-primary-600 hover:text-accent-600 underline decoration-primary-300">kamyonet nakliye</Link>,{' '}
-              <Link href="/hizmetler/sehir-ici-nakliye" className="text-primary-600 hover:text-accent-600 underline decoration-primary-300">şehir içi nakliye</Link> ve{' '}
-              <Link href="/hizmetler/esya-depolama" className="text-primary-600 hover:text-accent-600 underline decoration-primary-300">eşya depolama</Link>{' '}
+              Adana şehirler arası nakliyat, evden eve nakliyat, asansörlü taşımacılık, 
+              kamyonet nakliye, şehir içi nakliye ve eşya depolama 
               hizmetlerimiz hakkında aşağıdaki sekmelerden detaylı bilgi alabilirsiniz.
             </p>
           </div>
