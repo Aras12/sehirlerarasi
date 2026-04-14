@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #1d4ed8;
+  --primary-dark: #1e3a8a;
+  --accent: #eab308;
+  --accent-dark: #ca8a04;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+/* Prose content styling */
+.prose h2 { @apply text-2xl font-bold text-primary-600 mt-8 mb-4; }
+.prose h3 { @apply text-xl font-bold text-dark-700 mt-6 mb-3; }
+.prose p { @apply text-dark-600 leading-relaxed mb-4; }
+.prose ul { @apply list-disc list-inside space-y-2 mb-4 text-dark-600; }
+.prose li { @apply leading-relaxed; }
+.prose strong { @apply text-dark-800; }
+.prose a { @apply text-primary-500 hover:text-accent-600 underline decoration-primary-300 hover:decoration-accent-400 transition-colors; }
+.prose img { @apply rounded-xl shadow-md; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+/* Sticky CTA buttons */
+.sticky-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Gradient overlays */
+.gradient-overlay {
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(23, 37, 84, 0.95) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Tab active indicator */
+.tab-active {
+  @apply border-b-2 border-accent-500 text-accent-600 font-semibold;
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-all duration-300;
+}
+.card-hover:hover {
+  @apply -translate-y-1 shadow-xl;
+}
+
+/* Phone link styling */
+a[href^="tel:"] {
+  @apply font-semibold;
+}
