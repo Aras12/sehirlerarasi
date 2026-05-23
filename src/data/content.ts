@@ -89,11 +89,11 @@ export const testimonials: Testimonial[] = [
   { name: 'Ahmet Y.', location: 'Adana → İstanbul', rating: 5, text: 'Adana\'dan İstanbul\'a taşındık. Eşyalarımız kusursuz bir şekilde teslim edildi. Ekip çok profesyonel ve ilgiliydi. Kesinlikle tavsiye ederim.', date: '2025-01-20' },
   { name: 'Fatma K.', location: 'Adana → Ankara', rating: 5, text: 'Ankara\'ya taşınmamız çok sorunsuz geçti. Paketleme ve montaj hizmeti mükemmeldi. Fiyatları da gayet makul.', date: '2025-02-15' },
   { name: 'Mehmet D.', location: 'Seyhan → Çukurova', rating: 5, text: 'Şehir içi taşınmamızı aynı gün içinde tamamladılar. Asansörlü taşıma sayesinde 8. kattan sorunsuz indirdiler.', date: '2025-03-10' },
-  { name: 'Ayşe B.', location: 'Adana → İzmir', rating: 5, text: 'İzmir\'e taşınırken Baraj Taşımacılık\'ı tercih ettik. Eşyalarımız sigortalıydı ve zamanında teslim edildi.', date: '2025-04-05' },
+  { name: 'Ayşe B.', location: 'Adana → İzmir', rating: 5, text: 'İzmir\'e taşınırken Çözüm Nakliyat\'ı tercih ettik. Eşyalarımız sigortalıydı ve zamanında teslim edildi.', date: '2025-04-05' },
   { name: 'Hasan T.', location: 'Adana → Mersin', rating: 5, text: 'Mersin\'e kamyonet nakliye ile küçük çaplı taşınmamızı yaptırdık. Ekonomik ve hızlı bir hizmet aldık.', date: '2025-05-12' },
   { name: 'Zeynep A.', location: 'Adana → Gaziantep', rating: 5, text: 'Gaziantep\'e ofis taşıma yaptırdık. Bilgisayarlar ve dosyalar özenle paketlendi. İş kaybımız minimum oldu.', date: '2025-06-01' },
   { name: 'Ali R.', location: 'Yüreğir → Seyhan', rating: 4, text: 'Hızlı ve güvenilir hizmet. Eşyaları dikkatlice taşıdılar. Tek küçük aksilik oldu ama hemen çözüldü.', date: '2025-06-20' },
-  { name: 'Elif S.', location: 'Adana → Konya', rating: 5, text: 'Konya\'ya taşınmamızda her şey mükemmeldi. Eşyalar sapasağlam geldi. Teşekkürler Baraj Taşımacılık!', date: '2025-07-15' },
+  { name: 'Elif S.', location: 'Adana → Konya', rating: 5, text: 'Konya\'ya taşınmamızda her şey mükemmeldi. Eşyalar sapasağlam geldi. Teşekkürler Çözüm Nakliyat!', date: '2025-07-15' },
 ]
 
 // ============ TAB ARTICLES ============
@@ -112,7 +112,7 @@ export const tabArticles: TabArticle[] = [
   {
     id: 'adana-evden-eve-nakliyat',
     title: 'Adana Evden Eve Nakliyat',
-    content: '<p><strong>Adana evden eve nakliyat</strong> alanında yılların deneyimiyle hizmet veren Baraj Taşımacılık, Adana\'nın tüm ilçelerinde ev taşıma hizmeti sunmaktadır. Seyhan, Yüreğir, Çukurova, Sarıçam başta olmak üzere tüm Adana ilçelerinde profesyonel nakliyat hizmeti veriyoruz. Adana evden eve nakliyat fiyatlarımız rekabetçi ve şeffaftır.</p>'
+    content: '<p><strong>Adana evden eve nakliyat</strong> alanında yılların deneyimiyle hizmet veren Çözüm Nakliyat, Adana\'nın tüm ilçelerinde ev taşıma hizmeti sunmaktadır. Seyhan, Yüreğir, Çukurova, Sarıçam başta olmak üzere tüm Adana ilçelerinde profesyonel nakliyat hizmeti veriyoruz. Adana evden eve nakliyat fiyatlarımız rekabetçi ve şeffaftır.</p>'
   },
   {
     id: 'adana-nakliye',
@@ -127,7 +127,7 @@ export const tabArticles: TabArticle[] = [
   {
     id: 'sehirler-arasi-tasima-fiyatlari',
     title: 'Şehirler Arası Taşıma Fiyatları',
-    content: '<p><strong>Şehirler arası taşıma fiyatları</strong> eşya miktarı, mesafe, kat durumu ve ek hizmetlere göre belirlenmektedir. Baraj Taşımacılık olarak şeffaf fiyatlandırma politikamızla gizli maliyet uygulamıyoruz. Ücretsiz keşif hizmetimizle size özel en uygun fiyat teklifini sunuyoruz.</p>'
+    content: '<p><strong>Şehirler arası taşıma fiyatları</strong> eşya miktarı, mesafe, kat durumu ve ek hizmetlere göre belirlenmektedir. Çözüm Nakliyat olarak şeffaf fiyatlandırma politikamızla gizli maliyet uygulamıyoruz. Ücretsiz keşif hizmetimizle size özel en uygun fiyat teklifini sunuyoruz.</p>'
   },
   {
     id: 'sehirler-arasi-kamyonet-nakliye',

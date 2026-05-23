@@ -17,7 +17,7 @@ export default function TabArticles() {
           </h2>
           <div className="text-dark-600 text-base md:text-lg leading-relaxed text-center space-y-3">
             <p>
-              <strong>Baraj Taşımacılık</strong> olarak Adana merkezli şehirler arası evden eve nakliyat hizmetimizle
+              <strong>Çözüm Nakliyat</strong> olarak Adana merkezli şehirler arası evden eve nakliyat hizmetimizle
               Türkiye&#39;nin 81 iline güvenli, sigortalı ve profesyonel taşımacılık yapıyoruz.
               Yılların deneyimi, modern araç filomuz ve uzman kadromuzla eşyalarınızı özenle paketliyor,
               zamanında ve hasarsız teslim ediyoruz.

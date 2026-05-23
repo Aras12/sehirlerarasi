@@ -23,7 +23,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Baraj Taşımacılık ile Adana&apos;dan Türkiye&apos;nin her köşesine profesyonel, sigortalı ve ambalajlı nakliyat hizmeti. Eşyalarınız güvende, taşınmanız kolay!
+            Çözüm Nakliyat ile Adana&apos;dan Türkiye&apos;nin her köşesine profesyonel, sigortalı ve ambalajlı nakliyat hizmeti. Eşyalarınız güvende, taşınmanız kolay!
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">

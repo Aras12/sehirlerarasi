@@ -18,7 +18,7 @@ export const hizmetler: Hizmet[] = [
     shortDesc: 'Profesyonel ekibimizle eşyalarınızı güvenle yeni evinize taşıyoruz.',
     content: `
       <h2>Adana Evden Eve Nakliyat Hizmeti</h2>
-      <p><strong>Baraj Taşımacılık</strong> olarak Adana evden eve nakliyat hizmetimizle eşyalarınızı profesyonel ekibimiz ve modern ekipmanlarımızla güvenle taşıyoruz.</p>
+      <p><strong>Çözüm Nakliyat</strong> olarak Adana evden eve nakliyat hizmetimizle eşyalarınızı profesyonel ekibimiz ve modern ekipmanlarımızla güvenle taşıyoruz.</p>
       <img src="/images/hizmetler/evden-eve-nakliyat.jpg" alt="Adana evden eve nakliyat hizmeti" style="width:100%;border-radius:12px;margin:20px 0" />
       <h3>Evden Eve Nakliyat Sürecimiz</h3>
       <p>Taşınma sürecinizi stressiz hale getirmek için her aşamayı titizlikle planlıyoruz. <a href="/teklif-al">Ücretsiz keşif</a> hizmetimizle eşyalarınızın envanterini çıkarıyor, size en uygun taşıma planını ve fiyat teklifini sunuyoruz.</p>

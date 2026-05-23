@@ -18,12 +18,12 @@ export const turistikBolgeler: TuristikBolge[] = [
     keywords: ['adana bodrum nakliyat', 'adana bodrum nakliye', 'adana bodrum evden eve nakliyat', 'bodrum nakliyat fiyatları'],
     content: `
       <h2>Adana Bodrum Nakliyat - Şehirler Arası Evden Eve Taşımacılık</h2>
-      <p><strong>Adana Bodrum nakliyat</strong> hizmeti arıyorsanız doğru adrestesiniz. <strong>Baraj Taşımacılık</strong> olarak Adana'dan Bodrum'a düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri düzenliyoruz. Bodrum, Muğla iline bağlı Türkiye'nin en popüler tatil beldelerinden biridir. Özellikle yaz aylarında yoğun taşınma talebi almaktayız.</p>
+      <p><strong>Adana Bodrum nakliyat</strong> hizmeti arıyorsanız doğru adrestesiniz. <strong>Çözüm Nakliyat</strong> olarak Adana'dan Bodrum'a düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri düzenliyoruz. Bodrum, Muğla iline bağlı Türkiye'nin en popüler tatil beldelerinden biridir. Özellikle yaz aylarında yoğun taşınma talebi almaktayız.</p>
 
       <img src="/images/galeri/galeri1.jpg" alt="Adana Bodrum nakliyat" style="width:100%;border-radius:12px;margin:20px 0" />
 
       <h3>Adana Bodrum Arası Kaç Km?</h3>
-      <p>Adana ile Bodrum arası yaklaşık <strong>970 km</strong>'dir. Karayoluyla ortalama 10-12 saat sürmektedir. Baraj Taşımacılık olarak modern ve bakımlı araç filomuzla eşyalarınızı güvenle Bodrum'a taşıyoruz.</p>
+      <p>Adana ile Bodrum arası yaklaşık <strong>970 km</strong>'dir. Karayoluyla ortalama 10-12 saat sürmektedir. Çözüm Nakliyat olarak modern ve bakımlı araç filomuzla eşyalarınızı güvenle Bodrum'a taşıyoruz.</p>
 
       <h3>Bodrum Nakliyat Fiyatları</h3>
       <p>Adana Bodrum nakliyat fiyatları; eşya miktarı, daire büyüklüğü, kat durumu ve <a href="/hizmetler/asansorlu-tasima">asansör ihtiyacı</a>na göre değişmektedir. Tahmini fiyat için <a href="/fiyat-hesaplama"><strong>online fiyat hesaplama</strong></a> aracımızı kullanabilir veya <a href="/teklif-al">teklif formumuzu</a> doldurabilirsiniz.</p>
@@ -37,7 +37,7 @@ export const turistikBolgeler: TuristikBolge[] = [
         <li><a href="/blog/tasinma-oncesi-yapilacaklar-listesi">Taşınma öncesi kontrol listemizi</a> inceleyin</li>
       </ul>
 
-      <h3>Neden Baraj Taşımacılık?</h3>
+      <h3>Neden Çözüm Nakliyat?</h3>
       <p>Adana - Bodrum hattında düzenli seferlerimiz bulunmaktadır. Tüm taşımalarımız <a href="/blog/nakliyat-sirasinda-esya-hasar-gorurse">sigortalıdır</a>. <a href="/hizmetler/kamyonet-nakliye">Kamyonet nakliye</a> ile az eşya taşıma seçeneğimiz de mevcuttur.</p>
 
       <p>Diğer güzergahlarımız: <a href="/turistik/adana-marmaris-nakliyat">Marmaris</a>, <a href="/turistik/adana-kusadasi-nakliyat">Kuşadası</a>, <a href="/turistik/adana-edremit-nakliyat">Edremit</a>, <a href="/turistik/adana-fethiye-nakliyat">Fethiye</a>, <a href="/turistik/adana-alanya-nakliyat">Alanya</a></p>
@@ -52,7 +52,7 @@ export const turistikBolgeler: TuristikBolge[] = [
     keywords: ['adana marmaris nakliyat', 'adana marmaris nakliye', 'adana marmaris evden eve nakliyat'],
     content: `
       <h2>Adana Marmaris Nakliyat</h2>
-      <p><strong>Adana Marmaris nakliyat</strong> hizmetimizle Muğla'nın incisi Marmaris'e güvenli taşımacılık yapıyoruz. <strong>Baraj Taşımacılık</strong> olarak Adana'dan Marmaris'e düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri mevcuttur.</p>
+      <p><strong>Adana Marmaris nakliyat</strong> hizmetimizle Muğla'nın incisi Marmaris'e güvenli taşımacılık yapıyoruz. <strong>Çözüm Nakliyat</strong> olarak Adana'dan Marmaris'e düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri mevcuttur.</p>
       <img src="/images/galeri/galeri3.jpg" alt="Adana Marmaris nakliyat" style="width:100%;border-radius:12px;margin:20px 0" />
       <h3>Adana Marmaris Arası Mesafe</h3>
       <p>Adana - Marmaris arası yaklaşık <strong>900 km</strong>'dir. Profesyonel ekibimiz ve modern araçlarımızla eşyalarınızı 1-2 gün içinde Marmaris'e teslim ediyoruz.</p>

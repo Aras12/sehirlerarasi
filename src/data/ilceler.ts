@@ -9,7 +9,7 @@ export interface Ilce {
 const generateIlceContent = (name: string): string => {
   return `
     <h2>${name} Evden Eve Nakliyat</h2>
-    <p><strong>${name}</strong> bölgesinde <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> hizmeti sunan <strong>Baraj Taşımacılık</strong>, ${name} ve çevresindeki tüm taşıma ihtiyaçlarınızı profesyonelce karşılıyor. ${name} nakliyat ekibimiz, yılların tecrübesiyle eşyalarınızı güvenle taşır.</p>
+    <p><strong>${name}</strong> bölgesinde <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> hizmeti sunan <strong>Çözüm Nakliyat</strong>, ${name} ve çevresindeki tüm taşıma ihtiyaçlarınızı profesyonelce karşılıyor. ${name} nakliyat ekibimiz, yılların tecrübesiyle eşyalarınızı güvenle taşır.</p>
 
     <img src="/images/galeri/galeri2.jpg" alt="${name} evden eve nakliyat" style="width:100%;border-radius:12px;margin:20px 0" />
 

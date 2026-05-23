@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Shield, Users, Truck, Award, Phone, CheckCircle } from 'lucide-react'
 
 export const metadata = generatePageMeta({
-  title: 'Hakkımızda | Baraj Taşımacılık - Adana Şehirler Arası Nakliyat',
-  description: 'Baraj Taşımacılık hakkında. Adana merkezli şehirler arası nakliyat firması. Yılların tecrübesi, profesyonel ekip ve sigortalı taşımacılık.',
+  title: 'Hakkımızda | Çözüm Nakliyat - Adana Şehirler Arası Nakliyat',
+  description: 'Çözüm Nakliyat hakkında. Adana merkezli şehirler arası nakliyat firması. Yılların tecrübesi, profesyonel ekip ve sigortalı taşımacılık.',
   path: '/hakkimizda',
-  keywords: ['özgür nakliyat', 'adana nakliyat firması', 'şehirler arası nakliye firması adana'],
+  keywords: ['çözüm nakliyat', 'adana nakliyat firması', 'şehirler arası nakliye firması adana'],
 })
 
 export default function HakkimizdaPage() {
@@ -23,8 +23,8 @@ export default function HakkimizdaPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="prose max-w-none mb-12">
-            <h2>Baraj Taşımacılık - Adana Şehirler Arası Nakliyat</h2>
-            <p><strong>Baraj Taşımacılık</strong> olarak {new Date().getFullYear() - SITE_CONFIG.foundingYear} yılı aşkın süredir Adana merkezli şehirler arası nakliyat hizmeti sunmaktayız. Kuruluşumuzdan bu yana müşteri memnuniyetini ön planda tutarak, Türkiye&apos;nin 81 iline güvenli, hızlı ve ekonomik taşımacılık çözümleri sunuyoruz.</p>
+            <h2>Çözüm Nakliyat - Adana Şehirler Arası Nakliyat</h2>
+            <p><strong>Çözüm Nakliyat</strong> olarak {new Date().getFullYear() - SITE_CONFIG.foundingYear} yılı aşkın süredir Adana merkezli şehirler arası nakliyat hizmeti sunmaktayız. Kuruluşumuzdan bu yana müşteri memnuniyetini ön planda tutarak, Türkiye&apos;nin 81 iline güvenli, hızlı ve ekonomik taşımacılık çözümleri sunuyoruz.</p>
 
             <h3>Misyonumuz</h3>
             <p>Nakliyat sektöründe en yüksek kalite standartlarında hizmet sunarak, müşterilerimizin taşınma sürecini stressiz ve sorunsuz hale getirmek. Her eşyayı kendi eşyamız gibi özenle taşımak temel prensiplerimizin başında gelir.</p>

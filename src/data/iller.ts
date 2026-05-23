@@ -11,7 +11,7 @@ export interface Il {
 const generateIlContent = (name: string, slug?: string): string => {
   return `
     <h2>Adana ${name} Nakliyat - Şehirler Arası Evden Eve Taşımacılık</h2>
-    <p><strong>Adana ${name} nakliyat</strong> hizmeti arıyorsanız doğru adrestesiniz. <strong>Baraj Taşımacılık</strong> olarak Adana'dan ${name}'a ve ${name}'dan Adana'ya düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri düzenliyoruz. Yılların tecrübesi, modern araç filomuz ve profesyonel kadromuzla eşyalarınızı <a href="/hizmetler/asansorlu-tasima">asansörlü taşıma</a> dahil her türlü yöntemle güvenle taşıyoruz.</p>
+    <p><strong>Adana ${name} nakliyat</strong> hizmeti arıyorsanız doğru adrestesiniz. <strong>Çözüm Nakliyat</strong> olarak Adana'dan ${name}'a ve ${name}'dan Adana'ya düzenli <a href="/hizmetler/evden-eve-nakliyat">evden eve nakliyat</a> seferleri düzenliyoruz. Yılların tecrübesi, modern araç filomuz ve profesyonel kadromuzla eşyalarınızı <a href="/hizmetler/asansorlu-tasima">asansörlü taşıma</a> dahil her türlü yöntemle güvenle taşıyoruz.</p>
 
     <p>Adana ${name} arası taşımacılık hizmetimiz kapsamında ev eşyası, ofis malzemesi, beyaz eşya, antika ve hassas eşyalar özel ambalajlama teknikleri ile paketlenir. Tüm taşımalarımız <a href="/blog/nakliyat-sirasinda-esya-hasar-gorurse">nakliyat sigortası</a> kapsamında gerçekleştirilir.</p>
 
@@ -30,7 +30,7 @@ const generateIlContent = (name: string, slug?: string): string => {
 
     <h3>Adana ${name} Nakliyat Fiyatları 2025</h3>
     <p><strong>${name} nakliyat fiyatları</strong> birçok faktöre göre değişkenlik gösterir. Eşya miktarı, daire büyüklüğü (1+1, 2+1, 3+1, 4+1), kat durumu, <a href="/hizmetler/asansorlu-tasima">asansör ihtiyacı</a>, paketleme tercihi ve taşıma tarihi fiyatı etkileyen başlıca unsurlardır.</p>
-    <p>Baraj Taşımacılık olarak <strong>şeffaf fiyatlandırma</strong> politikası uyguluyoruz. Keşif sonrası verilen fiyat nettir, gizli maliyet yoktur. Adana ${name} arası en güncel <a href="/blog/sehirler-arasi-nakliyat-fiyatlari-2025">nakliyat fiyatları</a> için bizi arayın veya <a href="/teklif-al">teklif formumuzu</a> doldurun.</p>
+    <p>Çözüm Nakliyat olarak <strong>şeffaf fiyatlandırma</strong> politikası uyguluyoruz. Keşif sonrası verilen fiyat nettir, gizli maliyet yoktur. Adana ${name} arası en güncel <a href="/blog/sehirler-arasi-nakliyat-fiyatlari-2025">nakliyat fiyatları</a> için bizi arayın veya <a href="/teklif-al">teklif formumuzu</a> doldurun.</p>
 
     <img src="/images/galeri/galeri3.jpg" alt="Adana ${name} nakliyat araçları" style="width:100%;border-radius:12px;margin:20px 0" />
 
@@ -51,7 +51,7 @@ const generateIlContent = (name: string, slug?: string): string => {
     <h3>Adana ${name} Şehir İçi Nakliye</h3>
     <p>Sadece şehirler arası değil, <a href="/hizmetler/sehir-ici-nakliye"><strong>Adana şehir içi nakliye</strong></a> hizmetimizle de yanınızdayız. Seyhan, Yüreğir, Çukurova, Sarıçam ve diğer <a href="/ilceler/seyhan-nakliyat">Adana ilçeleri</a> arasında aynı gün teslimat yapıyoruz.</p>
 
-    <h3>Neden Baraj Taşımacılık ile ${name} Nakliyat?</h3>
+    <h3>Neden Çözüm Nakliyat ile ${name} Nakliyat?</h3>
     <ul>
       <li><strong>Düzenli Seferler:</strong> Adana - ${name} hattında haftalık düzenli seferlerimiz mevcuttur</li>
       <li><strong>Sigortalı Taşıma:</strong> Eşyalarınız yükleme anından teslimat anına kadar sigorta güvencesindedir</li>

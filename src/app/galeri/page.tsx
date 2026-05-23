@@ -6,24 +6,20 @@ import { SITE_CONFIG } from '@/data/site-config'
 
 export const metadata = generatePageMeta({
   title: 'Galeri | Adana Şehirler Arası Nakliyat Fotoğrafları',
-  description: 'Baraj Taşımacılık galeri sayfası. Şehirler arası nakliyat, evden eve taşıma ve asansörlü taşımacılık çalışmalarımızdan fotoğraflar.',
+  description: 'Çözüm Nakliyat galeri sayfası. Şehirler arası nakliyat, evden eve taşıma ve asansörlü taşımacılık çalışmalarımızdan fotoğraflar.',
   path: '/galeri',
   keywords: ['nakliyat galeri', 'evden eve nakliyat fotoğrafları', 'asansörlü taşımacılık görselleri'],
 })
 
 const images = [
-  { src: '/images/galeri/galeri1.jpg', alt: 'Adana şehirler arası evden eve nakliyat' },
-  { src: '/images/galeri/galeri2.jpg', alt: 'Profesyonel paketleme hizmeti' },
-  { src: '/images/galeri/galeri3.jpg', alt: 'Modern nakliyat araç filosu' },
-  { src: '/images/galeri/galeri4.jpg', alt: 'Asansörlü taşımacılık hizmeti' },
-  { src: '/images/galeri/galeri5.jpg', alt: 'Dış cephe asansörü ile taşıma' },
-  { src: '/images/galeri/galeri6.jpg', alt: 'Adana nakliye araçları' },
-  { src: '/images/galeri/galeri7.jpg', alt: 'Eşya paketleme ve yükleme' },
-  { src: '/images/galeri/galeri8.png', alt: 'Mobil asansör kiralama' },
-  { src: '/images/slider/slide1.png', alt: 'Şehirler arası nakliyat hizmeti' },
-  { src: '/images/slider/slide2.jpg', alt: 'Güvenli eşya taşımacılığı' },
-  { src: '/images/slider/slide3.jpg', alt: 'Sigortalı nakliyat' },
-  { src: '/images/hizmetler/evden-eve-nakliyat.jpg', alt: 'Adana evden eve nakliyat' },
+  { src: '/images/galeri/galeri2.jpg', alt: 'Çözüm Nakliyat Adana ofis ve mağaza' },
+  { src: '/images/galeri/galeri1.jpg', alt: 'Çözüm Nakliyat evden eve nakliyat kamyonu' },
+  { src: '/images/galeri/galeri3.jpg', alt: 'Çözüm Nakliyat profesyonel paketleme hizmeti' },
+  { src: '/images/galeri/galeri4.jpg', alt: 'Çözüm Nakliyat eşya ambalajlama ve taşıma' },
+  { src: '/images/galeri/galeri5.jpg', alt: 'Çözüm Nakliyat ekibi eşya taşıma çalışması' },
+  { src: '/images/galeri/galeri6.jpg', alt: 'Çözüm Nakliyat koltuk ve mobilya ambalajlama' },
+  { src: '/images/galeri/galeri7.jpg', alt: 'Çözüm Nakliyat paketlenmiş eşyalar' },
+  { src: '/images/galeri/galeri8.png', alt: 'Çözüm Nakliyat şehirler arası taşımacılık' },
 ]
 
 export default function GaleriPage() {

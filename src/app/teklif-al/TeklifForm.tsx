@@ -4,7 +4,7 @@ import { SITE_CONFIG } from '@/data/site-config'
 import { Send, Phone, CheckCircle, MapPin, Home } from 'lucide-react'
 import Link from 'next/link'
 
-const FORM_EMAIL = 'barajadananak@gmail.com'
+const FORM_EMAIL = 'info@sehirlerarasinakliye.org.tr'
 
 export default function TeklifForm() {
   const [submitted, setSubmitted] = useState(false)

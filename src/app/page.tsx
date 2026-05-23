@@ -47,7 +47,7 @@ export default function HomePage() {
               return (
                 <Link key={h.slug} href={`/hizmetler/${h.slug}`} className="group bg-white border-2 border-dark-100 hover:border-primary-500 rounded-2xl overflow-hidden card-hover">
                   <div className="h-44 relative overflow-hidden">
-                    <Image src={serviceImages[h.slug] || '/images/galeri/galeri1.jpg'} alt={`${h.name} - Baraj Taşımacılık Adana`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={serviceImages[h.slug] || '/images/galeri/galeri1.jpg'} alt={`${h.name} - Çözüm Nakliyat Adana`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent" />
                     <div className="absolute bottom-3 left-3 w-10 h-10 bg-accent-400 rounded-lg flex items-center justify-center">
                       <Icon className="text-primary-800" size={22} />

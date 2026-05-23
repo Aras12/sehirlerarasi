@@ -5,9 +5,9 @@ import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react'
 
 export const metadata = generatePageMeta({
   title: 'İletişim | Adana Şehirler Arası Nakliyat',
-  description: 'Baraj Taşımacılık iletişim bilgileri. Adana şehirler arası nakliyat için bizi arayın veya mesaj bırakın.',
+  description: 'Çözüm Nakliyat iletişim bilgileri. Adana şehirler arası nakliyat için bizi arayın veya mesaj bırakın.',
   path: '/iletisim',
-  keywords: ['adana nakliyat iletişim', 'özgür nakliyat telefon', 'nakliyat firması adana'],
+  keywords: ['adana nakliyat iletişim', 'çözüm nakliyat telefon', 'nakliyat firması adana'],
 })
 
 export default function IletisimPage() {
@@ -75,9 +75,9 @@ export default function IletisimPage() {
           <div>
             <div className="bg-dark-100 rounded-2xl overflow-hidden h-80 mb-6">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d204648.45!2d35.2!3d37.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1528900ef12a1e2f%3A0x1a0e6a5b0c4c6d7f!2sAdana!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                src="https://maps.google.com/maps?q=Re%C5%9Fatbey%2C%20T%C3%BCrkku%C5%9Fu%20Cd.%20No%3A76%2FD%2C%2001120%20Seyhan%2FAdana&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade" title="Baraj Taşımacılık Adana Konum"
+                referrerPolicy="no-referrer-when-downgrade" title="Çözüm Nakliyat Adana Konum"
               />
             </div>
 
