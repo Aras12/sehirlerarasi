@@ -1,65 +1,145 @@
-import HeroSlider from '@/components/home/HeroSlider'
-import TabArticles from '@/components/home/TabArticles'
-import { SITE_CONFIG } from '@/data/site-config'
-import { hizmetler } from '@/data/hizmetler'
-import { iller } from '@/data/iller'
-import { ilceler } from '@/data/ilceler'
-import { tabArticles } from '@/data/content'
-import { faqs, testimonials, blogPosts } from '@/data/content'
-import { faqSchema, reviewSchema } from '@/lib/seo'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Home, Building2, MapPin, Truck, Briefcase, Warehouse, Star, ChevronRight, Phone, ArrowRight, Shield, CheckCircle, Calculator } from 'lucide-react'
+import { ShieldCheck, Package, Truck, FileCheck, MapPinned, ArrowRight, Phone } from 'lucide-react'
+import { hizmetler, rotalar, turistik, blog, sayfalar, iller, featuredServiceSlugs, trSort } from '@/lib/content'
+import { SITE_CONFIG, waLink } from '@/data/site-config'
+import { meta, businessSchema } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import ServiceCard from '@/components/ServiceCard'
+import PriceCalculator from '@/components/PriceCalculator'
+import Faq from '@/components/Faq'
+import CtaBand from '@/components/CtaBand'
+import WhatsAppIcon from '@/components/WhatsAppIcon'
+import { estimate, formatTl } from '@/data/pricing'
 
-const iconMap: Record<string, any> = { Home, Building2, MapPin, Truck, Briefcase, Warehouse }
-const serviceImages: Record<string, string> = {
-  'evden-eve-nakliyat': '/images/hizmetler/evden-eve-nakliyat.jpg',
-  'asansorlu-tasima': '/images/hizmetler/asansorlu-tasima.jpg',
-  'sehir-ici-nakliye': '/images/hizmetler/sehir-ici-nakliye.jpg',
-  'kamyonet-nakliye': '/images/hizmetler/kamyonet-nakliye.jpg',
-  'ofis-tasima': '/images/hizmetler/ofis-tasima.png',
-  'esya-depolama': '/images/hizmetler/esya-depolama.png',
-}
+const home = sayfalar.home
+
+export const metadata = meta({ title: home.metaTitle, description: home.metaDescription, path: '/' })
+
+const features = [
+  { Icon: Truck, t: 'Aktarmasız taşıma', d: 'Tam araçta eşyanız başka araca aktarılmaz' },
+  { Icon: ShieldCheck, t: 'Sigortalı', d: 'Her taşımada nakliyat sigortası poliçesi' },
+  { Icon: Package, t: 'Ambalaj dahil', d: 'Balonlu naylon, streç, battaniye, koli' },
+  { Icon: FileCheck, t: 'Yazılı fiyat', d: 'Ücretsiz keşif, sonra değişmeyen fiyat' },
+  { Icon: MapPinned, t: '81 il', d: 'Adana çıkışlı, Türkiye geneli hizmet' },
+]
 
 export default function HomePage() {
+  const options = trSort(iller, (i) => i.name).map((i) => ({ code: i.code, name: i.name }))
+  const featured = featuredServiceSlugs.map((s) => hizmetler.find((h) => h.slug === s)!).filter(Boolean)
+  const secs = home.sections as { h2: string; paragraphs: string[]; bullets?: string[] }[]
+  const [s1, s2, surec, ...rest] = secs
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema(testimonials)) }} />
+      <JsonLd data={[businessSchema, { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_CONFIG.name, url: SITE_CONFIG.url }]} />
 
-      <HeroSlider />
-
-      {/* === GİRİŞ YAZISI + TAB MAKALELER === */}
-      <TabArticles />
-
-      {/* === HIZMETLER === */}
-      <section className="py-16 bg-white" id="hizmetler">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-700 mb-4">
-              Nakliyat Hizmetlerimiz
-            </h2>
-            <p className="text-dark-500 max-w-2xl mx-auto">Adana ve Türkiye genelinde profesyonel <strong>şehirler arası nakliyat</strong> çözümlerimiz ile yanınızdayız.</p>
+      <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 via-navy-900 to-navy-700">
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-sun-400/10 blur-2xl" aria-hidden />
+        <div className="wrap relative grid items-center gap-10 py-10 lg:grid-cols-[1.1fr_1fr] lg:py-16">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-sun-300 ring-1 ring-white/15">Türkiye geneli · 81 il · Adana merkez</span>
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-white sm:text-5xl">{home.h1}</h1>
+            <p className="mt-4 max-w-xl text-base text-navy-100 sm:text-lg">{home.heroText}</p>
+            <ul className="mt-5 grid max-w-lg grid-cols-2 gap-2 text-sm text-white">
+              {['Aktarmasız tam araç', 'Sigorta poliçesi', 'Ambalaj ve montaj dahil', 'Yazılı fiyat'].map((x) => (
+                <li key={x} className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 shrink-0 text-sun-400" /> {x}</li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <a href={SITE_CONFIG.phoneHref} className="btn-sun text-base"><Phone className="h-5 w-5" /> Hemen Ara</a>
+              <a href={waLink('Merhaba, şehirler arası nakliyat için fiyat almak istiyorum.')} target="_blank" rel="noopener noreferrer" className="btn-wa text-base"><WhatsAppIcon /> WhatsApp</a>
+              <Link href="/teklif-al" className="btn border border-white/30 text-base text-white hover:bg-white/10">Teklif Al</Link>
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hizmetler.map((h) => {
-              const Icon = iconMap[h.icon] || Truck
+          <PriceCalculator iller={options} from="01" to="06" compact />
+        </div>
+      </section>
+
+      <section className="border-b border-slate-100 bg-white">
+        <div className="wrap grid grid-cols-2 gap-4 py-6 sm:grid-cols-3 lg:grid-cols-5">
+          {features.map(({ Icon, t, d }) => (
+            <div key={t} className="flex items-start gap-3">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sun-100 text-navy-800"><Icon className="h-5 w-5" /></span>
+              <span><span className="block text-sm font-bold text-navy-900">{t}</span><span className="block text-xs text-slate-500">{d}</span></span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="wrap pt-8">
+        <Image src="/img/genel/sehirler-arasi-evden-eve-nakliyat-banner.webp" alt="BarajTrans şehirler arası evden eve nakliyat kamyonu ve Türkiye haritası" width={1942} height={809} sizes="(max-width:1280px) 100vw, 1280px" className="h-auto w-full rounded-3xl shadow-card" />
+      </div>
+
+      <section className="wrap py-14">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="chip">Hizmetlerimiz</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-navy-900">Şehirler arası taşımada her ihtiyaca uygun hizmet</h2>
+          </div>
+          <Link href="/hizmetler" className="btn-ghost">Tüm hizmetler <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {featured.map((s) => <ServiceCard key={s.slug} s={s} />)}
+        </div>
+      </section>
+
+      <section className="bg-navy-50/60 py-14">
+        <div className="wrap grid items-center gap-10 lg:grid-cols-2">
+          <div className="prose-bt">
+            {[s1, s2].map((s) => (
+              <div key={s.h2}>
+                <h2>{s.h2}</h2>
+                {s.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+              </div>
+            ))}
+          </div>
+          <Image src="/img/genel/turkiye-81-il-nakliyat-haritasi.webp" alt="Adana'dan Türkiye'nin 81 iline şehirler arası nakliyat haritası" width={1536} height={1024} sizes="(max-width:1024px) 100vw, 50vw" className="h-auto w-full rounded-3xl shadow-card" />
+        </div>
+      </section>
+
+      <section className="wrap py-14">
+        <h2 className="text-3xl font-extrabold text-navy-900">{surec.h2}</h2>
+        {surec.paragraphs.map((p, i) => <p key={i} className="mt-3 max-w-3xl text-slate-700">{p}</p>)}
+        {surec.bullets && (
+          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {surec.bullets.map((b, i) => (
+              <li key={b} className="card relative p-5 pl-16">
+                <span className="absolute left-5 top-5 flex h-8 w-8 items-center justify-center rounded-full bg-sun-400 text-sm font-extrabold text-navy-950">{i + 1}</span>
+                <span className="text-sm text-slate-700">{b}</span>
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
+
+      <section className="bg-white pb-6">
+        <div className="wrap grid gap-x-12 gap-y-2 prose-bt lg:grid-cols-2">
+          {rest.map((s) => (
+            <div key={s.h2}>
+              <h2 className="!mt-6">{s.h2}</h2>
+              {s.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+              {s.bullets && <ul>{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-navy-900 py-14 text-white">
+        <div className="wrap">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="chip !bg-white/10 !text-sun-300">Rotalar</p>
+              <h2 className="mt-2 text-3xl font-extrabold">En çok taşınma yapılan rotalar</h2>
+            </div>
+            <Link href="/rotalar" className="btn border border-white/25 text-white hover:bg-white/10">Tüm rotalar <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {rotalar.slice(0, 12).map((r) => {
+              const [lo] = estimate(r.km, '2+1')
               return (
-                <Link key={h.slug} href={`/hizmetler/${h.slug}`} className="group bg-white border-2 border-dark-100 hover:border-primary-500 rounded-2xl overflow-hidden card-hover">
-                  <div className="h-44 relative overflow-hidden">
-                    <Image src={serviceImages[h.slug] || '/images/galeri/galeri1.jpg'} alt={`${h.name} - Çözüm Nakliyat Adana`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3 w-10 h-10 bg-accent-400 rounded-lg flex items-center justify-center">
-                      <Icon className="text-primary-800" size={22} />
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-heading text-xl font-bold text-dark-800 mb-2 group-hover:text-primary-600 transition">{h.name}</h3>
-                    <p className="text-dark-500 text-sm leading-relaxed mb-3">{h.shortDesc}</p>
-                    <span className="text-primary-600 font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Detaylı Bilgi <ArrowRight size={16} />
-                    </span>
-                  </div>
+                <Link key={r.slug} href={`/rotalar/${r.slug}`} className="group rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 transition hover:bg-white/10">
+                  <p className="font-bold">Adana ⇄ {r.to}</p>
+                  <p className="mt-1 text-xs text-navy-200">{r.km} km · 2+1 ev {formatTl(lo)}&apos;den başlayan tahmini fiyat</p>
                 </Link>
               )
             })}
@@ -67,145 +147,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === FIYAT HESAPLAMA CTA === */}
-      <section className="py-12 bg-accent-400">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold text-primary-800 mb-2">
-              Nakliyat Fiyatınızı Hemen Hesaplayın!
-            </h2>
-            <p className="text-primary-700">Online fiyat hesaplama aracımız ile tahmini nakliyat ücretinizi öğrenin.</p>
+      <section className="wrap py-14">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="chip">Tatil bölgeleri</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-navy-900">Yazlığa ve sahile taşınma</h2>
           </div>
-          <div className="flex gap-4">
-            <Link href="/fiyat-hesaplama" className="flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white px-6 py-3 rounded-xl font-bold transition shadow-lg">
-              <Calculator size={20} /> Fiyat Hesapla
+          <Link href="/turistik" className="btn-ghost">Tüm bölgeler <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {turistik.slice(0, 6).map((t) => (
+            <Link key={t.slug} href={`/turistik/${t.slug}`} className="card p-4 transition hover:border-sun-300">
+              <p className="font-bold text-navy-900">{t.name}</p>
+              <p className="text-xs text-slate-500">{t.il} · yaklaşık {t.km} km</p>
             </Link>
-            <Link href="/teklif-al" className="flex items-center gap-2 bg-white hover:bg-dark-50 text-primary-700 px-6 py-3 rounded-xl font-bold transition shadow-lg">
-              Teklif Al
-            </Link>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* === ILLER GRID === */}
-      <section className="py-16 bg-white" id="iller">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-700 mb-4">
-              Şehirler Arası Nakliyat Güzergahlarımız
-            </h2>
-            <p className="text-dark-500">Adana&apos;dan Türkiye&apos;nin <strong>81 iline</strong> şehirler arası evden eve nakliyat hizmeti</p>
+      <section className="bg-navy-50/60 py-14">
+        <div className="wrap">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <h2 className="text-3xl font-extrabold text-navy-900">Taşınma rehberi</h2>
+            <Link href="/blog" className="btn-ghost">Tüm yazılar <ArrowRight className="h-4 w-4" /></Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {iller.map((il) => (
-              <Link key={il.slug} href={`/iller/${il.slug}`}
-                className="bg-dark-50 hover:bg-primary-50 border border-dark-100 hover:border-primary-300 rounded-lg px-3 py-2.5 text-center text-sm font-medium text-dark-700 hover:text-primary-700 transition group">
-                <span className="text-xs text-dark-400 group-hover:text-primary-500 block">{String(il.plaka).padStart(2, '0')}</span>
-                {il.name}
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-6">
-            <p className="text-dark-400 text-sm">Adana çıkışlı tüm güzergahlarda <strong className="text-primary-600">sigortalı</strong> ve <strong className="text-accent-600">ambalajlı</strong> taşımacılık</p>
-          </div>
-        </div>
-      </section>
-
-      {/* === ADANA İLÇELER === */}
-      <section className="py-12 bg-dark-50">
-        <div className="container mx-auto px-4">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-primary-700 mb-6 text-center">
-            Adana İlçeleri Nakliyat
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {ilceler.map((ilce) => (
-              <Link key={ilce.slug} href={`/ilceler/${ilce.slug}`}
-                className="bg-white hover:bg-accent-50 border border-dark-100 hover:border-accent-300 rounded-full px-4 py-2 text-sm font-medium text-dark-600 hover:text-accent-700 transition">
-                {ilce.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === YORUMLAR (Rich Snippet) === */}
-      <section className="py-16 bg-white" id="yorumlar">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-700 mb-4">
-              Müşteri Yorumları
-            </h2>
-            <div className="flex items-center justify-center gap-2 text-accent-500">
-              {[1,2,3,4,5].map(i => <Star key={i} size={24} fill="currentColor" />)}
-              <span className="text-dark-600 font-semibold ml-2">4.9 / 5</span>
-              <span className="text-dark-400">({testimonials.length} değerlendirme)</span>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-dark-50 rounded-2xl p-6 hover:shadow-lg transition" itemScope itemType="https://schema.org/Review">
-                <div className="flex gap-1 mb-3 text-accent-500">
-                  {Array.from({ length: t.rating }).map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
-                </div>
-                <p className="text-dark-600 text-sm leading-relaxed mb-4 italic" itemProp="reviewBody">&ldquo;{t.text}&rdquo;</p>
-                <div className="border-t border-dark-200 pt-3">
-                  <div className="font-semibold text-dark-800 text-sm" itemProp="author">{t.name}</div>
-                  <div className="text-dark-400 text-xs">{t.location}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === SSS (FAQ Rich Snippet) === */}
-      <section className="py-16 bg-dark-50" id="sss">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-700 mb-8 text-center">
-            Sıkça Sorulan Sorular
-          </h2>
-          <div className="space-y-4">
-            {faqs.slice(0, 6).map((faq, i) => (
-              <details key={i} className="bg-white rounded-xl shadow-sm group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                <summary className="flex items-center justify-between p-5 cursor-pointer font-heading font-semibold text-dark-800 hover:text-primary-600 transition" itemProp="name">
-                  {faq.question}
-                  <ChevronRight size={20} className="text-dark-400 group-open:rotate-90 transition-transform" />
-                </summary>
-                <div className="px-5 pb-5 text-dark-600 text-sm leading-relaxed" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <p itemProp="text">{faq.answer}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-          <div className="text-center mt-6">
-            <Link href="/sss" className="text-primary-600 font-semibold hover:text-primary-700 transition">
-              Tüm Soruları Gör →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* === BLOG === */}
-      <section className="py-16 bg-white" id="blog">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-700 mb-4">
-              Nakliyat Blog
-            </h2>
-            <p className="text-dark-500">Taşınma rehberleri, fiyat bilgileri ve nakliyat ipuçları</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {blogPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-                <div className="bg-dark-50 rounded-2xl overflow-hidden card-hover">
-                  <div className="h-40 bg-primary-100 relative overflow-hidden">
-                    <Image src={post.image} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
-                  </div>
-                  <div className="p-5">
-                    <span className="text-xs font-semibold text-accent-600 bg-accent-50 px-2 py-1 rounded">{post.category}</span>
-                    <h3 className="font-heading font-bold text-dark-800 mt-2 mb-2 group-hover:text-primary-600 transition line-clamp-2">{post.title}</h3>
-                    <p className="text-dark-500 text-sm line-clamp-2">{post.description}</p>
-                  </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {blog.slice(0, 3).map((p) => (
+              <Link key={p.slug} href={`/blog/${p.slug}`} className="group card overflow-hidden">
+                <div className="relative aspect-[16/10]"><Image src={p.image} alt={p.title} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover" /></div>
+                <div className="p-5">
+                  <p className="text-xs font-semibold uppercase text-sun-700">{p.category}</p>
+                  <h3 className="mt-1 font-bold text-navy-900 group-hover:text-navy-600">{p.title}</h3>
+                  <p className="mt-2 text-sm text-slate-600">{p.excerpt}</p>
                 </div>
               </Link>
             ))}
@@ -213,21 +186,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === BOTTOM CTA === */}
-      <section className="py-16 bg-primary-700 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Hemen Taşının!</h2>
-          <p className="text-blue-200 mb-8 max-w-xl mx-auto">Adana şehirler arası nakliyat için bizi arayın, ücretsiz keşif ve fiyat teklifi alın.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`tel:${SITE_CONFIG.phoneClean}`} className="flex items-center gap-2 bg-accent-400 hover:bg-accent-500 text-primary-800 px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl">
-              <Phone size={22} /> {SITE_CONFIG.phone}
-            </a>
-            <Link href="/teklif-al" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold transition border border-white/20">
-              Online Teklif Al
-            </Link>
-          </div>
-        </div>
-      </section>
+      <div className="wrap">
+        <Faq items={(sayfalar.sss as { q: string; a: string }[]).slice(0, 6)} title="Şehirler arası nakliyat hakkında sık sorulanlar" />
+        <CtaBand />
+      </div>
     </>
   )
 }

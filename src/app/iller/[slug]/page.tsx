@@ -1,153 +1,129 @@
-import { iller, getIlBySlug, getAllIlSlugs } from '@/data/iller'
-import { hizmetler } from '@/data/hizmetler'
-import { ilceler } from '@/data/ilceler'
-import { SITE_CONFIG } from '@/data/site-config'
-import { generatePageMeta, breadcrumbSchema, serviceSchema } from '@/lib/seo'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Phone, ArrowRight, MapPin, Shield, ChevronRight } from 'lucide-react'
-import type { Metadata } from 'next'
+import Link from 'next/link'
+import Image from 'next/image'
+import { iller, ilByCode, routeForCode, hizmetler } from '@/lib/content'
+import { meta, serviceSchema } from '@/lib/seo'
+import { estimate, formatTl, driveHours, deliveryPlan } from '@/data/pricing'
+import { SITE_CONFIG } from '@/data/site-config'
+import PageHero from '@/components/PageHero'
+import PriceTable from '@/components/PriceTable'
+import Faq from '@/components/Faq'
+import Sidebar from '@/components/Sidebar'
+import CtaBand from '@/components/CtaBand'
+import JsonLd from '@/components/JsonLd'
 
-export async function generateStaticParams() {
-  return getAllIlSlugs().map(slug => ({ slug }))
+type P = { params: { slug: string } }
+
+export function generateStaticParams() {
+  return iller.map((i) => ({ slug: i.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const il = getIlBySlug(params.slug)
+export function generateMetadata({ params }: P) {
+  const il = iller.find((i) => i.slug === params.slug)
   if (!il) return {}
-  return generatePageMeta({
-    title: il.title,
-    description: il.description,
-    path: `/iller/${il.slug}`,
-    keywords: il.keywords,
-  })
+  return meta({ title: il.metaTitle, description: il.metaDescription, path: `/iller/${il.slug}` })
 }
 
-export default function IlPage({ params }: { params: { slug: string } }) {
-  const il = getIlBySlug(params.slug)
+// Başlıklar her ilde aynı kalıp olmasın diye plaka koduna göre dönüşümlü seçilir.
+const H = {
+  nakliyat: ['{il} Şehirler Arası Nakliyat', '{il} Şehirler Arası Evden Eve Nakliyat', '{il} Çıkışlı ve Varışlı Şehirler Arası Nakliyat'],
+  fiyat: ['{il} Şehirler Arası Ev Taşıma Fiyatları', '{il} Şehirler Arası Nakliyat Fiyatları {yil}', '{il} Ev Taşıma Ücretleri Nasıl Belirlenir?'],
+  parca: ['{il} Şehirler Arası Parça Eşya Taşıma', '{il} Parça Eşya ve Ambar Nakliye', 'Az Eşya İçin {il} Parsiyel Taşıma'],
+  sigorta: ['{il} Şehirler Arası Sigortalı Taşıma', '{il} Sigortalı ve Ambalajlı Ev Taşıma', 'Eşyanız Güvencede: {il} Sigortalı Nakliyat'],
+  ipucu: ['{a} Taşınmadan Önce Bilmeniz Gerekenler', '{il} Taşınması İçin Pratik Öneriler', '{il} Ev Taşıma Rehberi'],
+}
+
+export default function IlPage({ params }: P) {
+  const il = iller.find((i) => i.slug === params.slug)
   if (!il) notFound()
-
-  const otherIller = iller.filter(i => i.slug !== il.slug).slice(0, 20)
-
+  const n = parseInt(il.code, 10)
+  const h = (k: keyof typeof H) => H[k][n % 3].replace('{il}', il.name).replace('{a}', il.ek.a).replace('{yil}', '2026')
+  const isAdana = il.code === '01'
+  const route = routeForCode(il.code)
+  const [lo] = estimate(il.kmAdana, '2+1')
+  const komsu = il.komsu.map(ilByCode).filter(Boolean)
+  const featured = ['evden-eve-nakliyat', 'parca-esya-tasima', 'ambar-nakliye', 'kamyonet-nakliye', 'asansorlu-tasima', 'sigortali-tasima'].map((s) => hizmetler.find((x) => x.slug === s)!)
+  const image = il.code === '33' ? '/img/genel/mersin-sehirler-arasi-nakliyat.webp' : undefined
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
-        { name: 'Anasayfa', url: SITE_CONFIG.url },
-        { name: 'Şehirler', url: `${SITE_CONFIG.url}/iller/istanbul-sehirler-arasi-nakliyat` },
-        { name: `${il.name} Nakliyat`, url: `${SITE_CONFIG.url}/iller/${il.slug}` },
-      ])) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema(
-        `${il.name} Şehirler Arası Nakliyat`,
-        il.description,
-        `${SITE_CONFIG.url}/iller/${il.slug}`
-      )) }} />
+      <JsonLd data={serviceSchema(`${il.name} Şehirler Arası Nakliyat`, il.metaDescription, `/iller/${il.slug}`, il.name)} />
+      <PageHero title={il.h1} lead={il.intro[0]} crumbs={[{ href: '/iller', name: 'İller' }, { href: `/iller/${il.slug}`, name: il.name }]} image={image} imageAlt={il.imgAlt} badge={il.region}>
+        {!isAdana && (
+          <dl className="mt-6 grid max-w-2xl grid-cols-3 gap-3 text-white">
+            <div className="rounded-xl bg-white/10 p-3"><dt className="text-xs text-navy-200">Adana mesafe</dt><dd className="font-bold">{il.kmAdana} km</dd></div>
+            <div className="rounded-xl bg-white/10 p-3"><dt className="text-xs text-navy-200">Yol süresi</dt><dd className="font-bold">{driveHours(il.kmAdana).replace('Yaklaşık ', '')}</dd></div>
+            <div className="rounded-xl bg-white/10 p-3"><dt className="text-xs text-navy-200">2+1 ev</dt><dd className="font-bold">{formatTl(lo)}+</dd></div>
+          </dl>
+        )}
+      </PageHero>
 
-      {/* Breadcrumb */}
-      <div className="bg-dark-50 border-b border-dark-100">
-        <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-2 text-sm text-dark-500">
-            <Link href="/" className="hover:text-primary-600 transition">Anasayfa</Link>
-            <ChevronRight size={14} />
-            <Link href="/iller/istanbul-sehirler-arasi-nakliyat" className="hover:text-primary-600 transition">Şehirler</Link>
-            <ChevronRight size={14} />
-            <span className="text-primary-600 font-medium">{il.name}</span>
-          </nav>
-        </div>
+      <div className="wrap grid gap-10 py-10 lg:grid-cols-[1fr_340px]">
+        <article className="prose-bt min-w-0">
+          {il.intro.slice(1).map((p, i) => <p key={i}>{p}</p>)}
+
+          <h2>{h('nakliyat')}</h2>
+          {il.nakliyat.map((p, i) => <p key={i}>{p}</p>)}
+
+          <h2>{h('fiyat')}</h2>
+          {il.fiyat.map((p, i) => <p key={i}>{p}</p>)}
+          {isAdana ? null : (
+            <>
+              <PriceTable km={il.kmAdana} from="Adana" to={il.name} caption={`Adana ⇄ ${il.name} tahmini ev taşıma fiyatları (${SITE_CONFIG.priceUpdated})`} />
+              <p className="text-sm text-slate-500">Teslim: {deliveryPlan(il.kmAdana)}. Tablo karayolu mesafesine göre hesaplanmış tahmini aralıktır; kesin fiyat ücretsiz keşif sonrası yazılı verilir.</p>
+            </>
+          )}
+
+          <h2>{h('parca')}</h2>
+          {il.parca.map((p, i) => <p key={i}>{p}</p>)}
+
+          <h2>{h('sigorta')}</h2>
+          {il.sigorta.map((p, i) => <p key={i}>{p}</p>)}
+
+          <h2>{h('ipucu')}</h2>
+          <ul>{il.ipucu.map((p) => <li key={p}>{p}</li>)}</ul>
+
+          {route && (
+            <div className="not-prose my-8 rounded-2xl bg-navy-900 p-6 text-white">
+              <p className="text-lg font-bold">Adana ⇄ {il.name} rota sayfası</p>
+              <p className="mt-1 text-sm text-navy-100">Bu güzergahta pikap, kamyonet ve ambar seçenekleri, yol süresi ve ayrıntılı fiyatlar.</p>
+              <Link href={`/rotalar/${route.slug}`} className="btn-sun mt-4">Rotayı incele</Link>
+            </div>
+          )}
+
+          <h2>{il.name} İlçelerine Nakliyat</h2>
+          <p>{il.ek.in ?? il.name} tüm ilçelerine ev, ofis ve parça eşya taşıması yapıyoruz:</p>
+          <p className="not-prose flex flex-wrap gap-2">
+            {il.ilceler.map((x) => <span key={x} className="chip">{x}</span>)}
+          </p>
+        </article>
+        <Sidebar from={isAdana ? '01' : il.code} to={isAdana ? '' : '01'} wa={`Merhaba, ${il.name} şehirler arası nakliyat için fiyat almak istiyorum.`} />
       </div>
 
-      {/* Hero */}
-      <section className="bg-primary-700 py-12">
-        <div className="container mx-auto px-4 text-center text-white">
-          <div className="flex items-center justify-center gap-2 text-accent-300 mb-3">
-            <MapPin size={20} />
-            <span className="text-sm font-medium">Adana → {il.name}</span>
+      <section className="bg-navy-50/60 py-12">
+        <div className="wrap">
+          <h2 className="text-2xl font-extrabold text-navy-900">{il.name} için hizmetlerimiz</h2>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {featured.map((s) => (
+              <Link key={s.slug} href={`/hizmetler/${s.slug}`} className="card overflow-hidden transition hover:border-sun-300">
+                <div className="relative aspect-square"><Image src={s.image} alt={`${il.name} ${s.name.toLocaleLowerCase('tr')}`} fill sizes="(max-width:640px) 50vw, 16vw" className="object-cover" /></div>
+                <p className="p-3 text-sm font-bold text-navy-900">{s.name}</p>
+              </Link>
+            ))}
           </div>
-          <h1 className="font-heading text-3xl md:text-4xl font-extrabold mb-4">{il.name} Şehirler Arası Nakliyat</h1>
-          <p className="text-blue-200 max-w-2xl mx-auto mb-6">{il.description}</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href={`tel:${SITE_CONFIG.phoneClean}`} className="flex items-center justify-center gap-2 bg-accent-400 hover:bg-accent-500 text-primary-800 px-6 py-3 rounded-xl font-bold transition">
-              <Phone size={18} /> Hemen Ara
-            </a>
-            <Link href="/teklif-al" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition border border-white/20">
-              Teklif Al
-            </Link>
-            <Link href="/fiyat-hesaplama" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition border border-white/20">
-              Fiyat Hesapla
-            </Link>
-          </div>
+          {komsu.length > 0 && (
+            <>
+              <h2 className="mt-10 text-xl font-bold text-navy-900">Yakın illere şehirler arası nakliyat</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {komsu.map((k) => <Link key={k.code} href={`/iller/${k.slug}`} className="btn-ghost !py-2">{k.name} Nakliyat</Link>)}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: il.content }} />
-
-            {/* Internal links to services */}
-            <div className="mt-8 bg-dark-50 rounded-2xl p-6">
-              <h3 className="font-heading text-xl font-bold text-primary-700 mb-4">{il.name} Nakliyat Hizmetlerimiz</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {hizmetler.map(h => (
-                  <Link key={h.slug} href={`/hizmetler/${h.slug}`} className="flex items-center gap-2 bg-white rounded-lg px-4 py-3 text-sm text-dark-700 hover:text-primary-600 hover:shadow-md transition">
-                    <ArrowRight size={14} className="text-accent-500" />
-                    {il.name} {h.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Adana ilçeleri link */}
-            <div className="mt-6 bg-accent-50 rounded-2xl p-6">
-              <h3 className="font-heading text-lg font-bold text-primary-700 mb-3">Adana İlçeleri Nakliyat</h3>
-              <div className="flex flex-wrap gap-2">
-                {ilceler.map(ilce => (
-                  <Link key={ilce.slug} href={`/ilceler/${ilce.slug}`} className="text-xs bg-white px-3 py-1.5 rounded-full text-dark-600 hover:text-primary-600 hover:bg-primary-50 transition">
-                    {ilce.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <aside className="space-y-6">
-            {/* CTA Card */}
-            <div className="bg-primary-700 text-white rounded-2xl p-6 text-center">
-              <Shield className="mx-auto mb-3 text-accent-300" size={36} />
-              <h3 className="font-heading font-bold text-lg mb-2">Sigortalı Taşımacılık</h3>
-              <p className="text-blue-200 text-sm mb-4">Eşyalarınız tam güvence altında taşınır.</p>
-              <a href={`tel:${SITE_CONFIG.phoneClean}`} className="block bg-accent-400 hover:bg-accent-500 text-primary-800 py-3 rounded-xl font-bold transition">
-                {SITE_CONFIG.phone}
-              </a>
-            </div>
-
-            {/* Quick links to other iller */}
-            <div className="bg-dark-50 rounded-2xl p-6">
-              <h3 className="font-heading font-bold text-primary-700 mb-4">Diğer Güzergahlar</h3>
-              <div className="space-y-2 max-h-96 overflow-y-auto">
-                {otherIller.map(i => (
-                  <Link key={i.slug} href={`/iller/${i.slug}`} className="block text-sm text-dark-600 hover:text-primary-600 py-1 transition">
-                    → Adana {i.name} Nakliyat
-                  </Link>
-                ))}
-              </div>
-              <Link href="/#iller" className="block text-center text-primary-600 font-semibold text-sm mt-4 hover:text-primary-700">
-                Tüm İller →
-              </Link>
-            </div>
-
-            {/* Blog links */}
-            <div className="bg-white border border-dark-100 rounded-2xl p-6">
-              <h3 className="font-heading font-bold text-primary-700 mb-4">Blog Yazıları</h3>
-              <div className="space-y-3">
-                <Link href="/blog/sehirler-arasi-nakliyat-fiyatlari-2025" className="block text-sm text-dark-600 hover:text-primary-600 transition">📰 Şehirler Arası Nakliyat Fiyatları 2025</Link>
-                <Link href="/blog/tasinma-oncesi-yapilacaklar-listesi" className="block text-sm text-dark-600 hover:text-primary-600 transition">📰 Taşınma Öncesi Yapılacaklar</Link>
-                <Link href="/blog/asansorlu-nakliyat-nedir-avantajlari" className="block text-sm text-dark-600 hover:text-primary-600 transition">📰 Asansörlü Nakliyat Avantajları</Link>
-              </div>
-            </div>
-          </aside>
-        </div>
+      <div className="wrap">
+        <Faq items={il.faq} title={`${il.name} nakliyat hakkında sık sorulanlar`} />
+        <CtaBand title={`${il.ek.a} ya da ${il.ek.dan} taşınıyor musunuz?`} wa={`Merhaba, ${il.name} nakliyat için fiyat almak istiyorum.`} />
       </div>
     </>
   )

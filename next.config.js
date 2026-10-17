@@ -4,6 +4,11 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      { source: '/blog/sehirler-arasi-nakliyat-fiyatlari-2025', destination: '/sehirler-arasi-nakliyat-fiyatlari', permanent: true },
+    ]
+  },
   async headers() {
     return [
       {

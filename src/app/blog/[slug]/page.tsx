@@ -1,91 +1,67 @@
-import { blogPosts, getBlogBySlug } from '@/data/content'
-import { hizmetler } from '@/data/hizmetler'
-import { SITE_CONFIG } from '@/data/site-config'
-import { generatePageMeta, breadcrumbSchema } from '@/lib/seo'
-import Link from 'next/link'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { ChevronRight, Calendar, Phone } from 'lucide-react'
-import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { blog, hizmetler } from '@/lib/content'
+import { meta } from '@/lib/seo'
+import { SITE_CONFIG, pageUrl } from '@/data/site-config'
+import PageHero from '@/components/PageHero'
+import Article from '@/components/Article'
+import Faq from '@/components/Faq'
+import Sidebar from '@/components/Sidebar'
+import CtaBand from '@/components/CtaBand'
+import JsonLd from '@/components/JsonLd'
 
-export async function generateStaticParams() {
-  return blogPosts.map(b => ({ slug: b.slug }))
+type P = { params: { slug: string } }
+
+export function generateStaticParams() {
+  return blog.map((p) => ({ slug: p.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = getBlogBySlug(params.slug)
-  if (!post) return {}
-  return generatePageMeta({ title: post.metaTitle, description: post.description, path: `/blog/${post.slug}`, image: post.image })
+export function generateMetadata({ params }: P) {
+  const p = blog.find((x) => x.slug === params.slug)
+  if (!p) return {}
+  return meta({ title: p.metaTitle, description: p.metaDescription, path: `/blog/${p.slug}`, image: p.image, type: 'article' })
 }
 
-export default function BlogDetailPage({ params }: { params: { slug: string } }) {
-  const post = getBlogBySlug(params.slug)
-  if (!post) notFound()
-  const otherPosts = blogPosts.filter(p => p.slug !== post.slug)
+const fmt = (d: string) => new Date(d).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
 
+export default function PostPage({ params }: P) {
+  const p = blog.find((x) => x.slug === params.slug)
+  if (!p) notFound()
+  const related = p.relatedServices.map((s) => hizmetler.find((h) => h.slug === s)).filter(Boolean) as typeof hizmetler
+  const more = blog.filter((x) => x.slug !== p.slug).slice(0, 3)
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org', '@type': 'BlogPosting',
-        headline: post.title, description: post.description, datePublished: post.date,
-        author: { '@type': 'Organization', name: SITE_CONFIG.name },
-        publisher: { '@type': 'Organization', name: SITE_CONFIG.name },
-        url: `${SITE_CONFIG.url}/blog/${post.slug}`,
-      }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
-        { name: 'Anasayfa', url: SITE_CONFIG.url },
-        { name: 'Blog', url: `${SITE_CONFIG.url}/blog` },
-        { name: post.title, url: `${SITE_CONFIG.url}/blog/${post.slug}` },
-      ])) }} />
-
-      <div className="bg-dark-50 border-b border-dark-100">
-        <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-2 text-sm text-dark-500">
-            <Link href="/" className="hover:text-primary-600">Anasayfa</Link><ChevronRight size={14} />
-            <Link href="/blog" className="hover:text-primary-600">Blog</Link><ChevronRight size={14} />
-            <span className="text-primary-600 font-medium line-clamp-1">{post.title}</span>
-          </nav>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <article className="lg:col-span-2">
-          <div className="h-64 md:h-80 relative rounded-2xl overflow-hidden mb-6">
-            <Image src={post.image} alt={post.title} fill className="object-cover" />
-            <div className="absolute top-4 left-4"><span className="bg-accent-400 text-primary-800 text-xs font-bold px-3 py-1 rounded-full">{post.category}</span></div>
-          </div>
-          <div className="flex items-center gap-2 text-dark-400 text-sm mb-4"><Calendar size={14} />{new Date(post.date).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-          <h1 className="font-heading text-3xl md:text-4xl font-extrabold text-dark-800 mb-6">{post.title}</h1>
-          <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
-
-          {/* İç linkler */}
-          <div className="mt-8 bg-primary-50 rounded-2xl p-6">
-            <h3 className="font-heading text-lg font-bold text-primary-700 mb-4">İlgili Hizmetlerimiz</h3>
-            <div className="flex flex-wrap gap-3">
-              {hizmetler.map(h => (
-                <Link key={h.slug} href={`/hizmetler/${h.slug}`} className="bg-white px-4 py-2 rounded-full text-sm text-dark-600 hover:text-primary-600 hover:shadow transition">{h.name}</Link>
-              ))}
-              <Link href="/fiyat-hesaplama" className="bg-accent-100 px-4 py-2 rounded-full text-sm text-accent-700 hover:bg-accent-200 font-semibold transition">Fiyat Hesapla</Link>
-              <Link href="/teklif-al" className="bg-primary-100 px-4 py-2 rounded-full text-sm text-primary-700 hover:bg-primary-200 font-semibold transition">Teklif Al</Link>
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: p.title, description: p.metaDescription, datePublished: p.date, dateModified: p.date, image: pageUrl(p.image), mainEntityOfPage: pageUrl(`/blog/${p.slug}`), author: { '@type': 'Organization', name: SITE_CONFIG.name }, publisher: { '@id': `${SITE_CONFIG.url}/#firma` } }} />
+      <PageHero title={p.title} lead={p.excerpt} crumbs={[{ href: '/blog', name: 'Blog' }, { href: `/blog/${p.slug}`, name: p.title }]} image={p.image} imageAlt={p.title} badge={p.category}>
+        <p className="mt-4 text-sm text-navy-200">{fmt(p.date)}</p>
+      </PageHero>
+      <div className="wrap grid gap-10 py-10 lg:grid-cols-[1fr_340px]">
+        <article className="prose-bt min-w-0">
+          <Article sections={p.sections} />
+          {related.length > 0 && (
+            <div className="mt-8 rounded-2xl bg-navy-50 p-5">
+              <p className="!mb-2 font-bold text-navy-900">İlgili hizmetler</p>
+              <div className="flex flex-wrap gap-2">{related.map((s) => <Link key={s.slug} href={`/hizmetler/${s.slug}`} className="btn-ghost !py-2">{s.name}</Link>)}</div>
             </div>
-          </div>
+          )}
         </article>
-
-        <aside className="space-y-6">
-          <div className="bg-primary-700 text-white rounded-2xl p-6 text-center">
-            <h3 className="font-heading font-bold text-lg mb-2">Hemen Bilgi Alın</h3>
-            <p className="text-blue-200 text-sm mb-4">Nakliyat ihtiyacınız için bizi arayın</p>
-            <a href={`tel:${SITE_CONFIG.phoneClean}`} className="block bg-accent-400 text-primary-800 py-3 rounded-xl font-bold">{SITE_CONFIG.phone}</a>
-          </div>
-          <div className="bg-dark-50 rounded-2xl p-6">
-            <h3 className="font-heading font-bold text-primary-700 mb-4">Diğer Yazılar</h3>
-            {otherPosts.map(p => (
-              <Link key={p.slug} href={`/blog/${p.slug}`} className="block text-sm text-dark-600 hover:text-primary-600 py-2 border-b border-dark-100 last:border-0 transition">
-                {p.title}
+        <Sidebar />
+      </div>
+      <div className="wrap">
+        {p.faq?.length > 0 && <Faq items={p.faq} />}
+        <section className="py-10">
+          <h2 className="text-xl font-bold text-navy-900">Diğer yazılar</h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {more.map((m) => (
+              <Link key={m.slug} href={`/blog/${m.slug}`} className="card overflow-hidden hover:border-sun-300">
+                <div className="relative aspect-[16/10]"><Image src={m.image} alt={m.title} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover" /></div>
+                <p className="p-4 font-bold text-navy-900">{m.title}</p>
               </Link>
             ))}
           </div>
-        </aside>
+        </section>
+        <CtaBand />
       </div>
     </>
   )

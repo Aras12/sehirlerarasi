@@ -1,54 +1,35 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-import StickyButtons from '@/components/layout/StickyButtons'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import MobileBar from '@/components/MobileBar'
 import { SITE_CONFIG } from '@/data/site-config'
-import { localBusinessSchema } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: {
-    default: `${SITE_CONFIG.title} | ${SITE_CONFIG.name} | Evden Eve Nakliyat`,
-    template: `%s | ${SITE_CONFIG.name}`,
-  },
-  description: SITE_CONFIG.description,
-  keywords: 'şehirler arası nakliyat, adana nakliyat, evden eve nakliyat, adana evden eve nakliyat, şehirler arası taşıma, adana nakliye, sigortalı nakliyat',
   metadataBase: new URL(SITE_CONFIG.url),
-  alternates: { canonical: SITE_CONFIG.url },
-  openGraph: {
-    type: 'website',
-    locale: 'tr_TR',
-    url: SITE_CONFIG.url,
-    siteName: SITE_CONFIG.name,
-    title: `${SITE_CONFIG.title} | ${SITE_CONFIG.name}`,
-    description: SITE_CONFIG.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
-  },
-  verification: {
-    // google: 'YOUR_GOOGLE_VERIFICATION_CODE',
-    // yandex: 'YOUR_YANDEX_VERIFICATION_CODE',
-  },
+  title: { default: 'Şehirler Arası Nakliyat | BarajTrans', template: '%s | BarajTrans' },
+  description: SITE_CONFIG.description,
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  icons: { icon: '/favicon.png', apple: '/apple-touch-icon.png' },
 }
+
+export const viewport: Viewport = { themeColor: '#0f2a5c', width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr">
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema()) }}
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body>
+        <a href="#icerik" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">İçeriğe geç</a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="icerik">{children}</main>
         <Footer />
-        <StickyButtons />
+        <MobileBar />
       </body>
     </html>
   )

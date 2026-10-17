@@ -1,79 +1,40 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#7db8f5',
-          400: '#3b82f6',
-          500: '#1d4ed8',
-          600: '#1e40af',
-          700: '#1e3a8a',
-          800: '#172554',
-          900: '#0f172a',
+        // BarajTrans logosundaki lacivert ve sarı
+        navy: {
+          50: '#eef3fb',
+          100: '#d7e2f5',
+          200: '#aec4ea',
+          300: '#7c9fdb',
+          400: '#4b77c7',
+          500: '#2556ad',
+          600: '#1a4594',
+          700: '#143777',
+          800: '#0f2a5c',
+          900: '#0b1f45',
+          950: '#071530',
         },
-        accent: {
-          50: '#fefce8',
-          100: '#fef9c3',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#eab308',
-          600: '#ca8a04',
-          700: '#a16207',
-          800: '#854d0e',
-          900: '#713f12',
+        sun: {
+          50: '#fffbea',
+          100: '#fff3c4',
+          200: '#ffe58a',
+          300: '#ffd54f',
+          400: '#ffc61a',
+          500: '#f5b000',
+          600: '#d99700',
+          700: '#b37a00',
         },
-        dark: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-        }
       },
       fontFamily: {
-        heading: ['Montserrat', 'sans-serif'],
-        body: ['Open Sans', 'sans-serif'],
+        sans: ['Poppins', 'system-ui', 'Segoe UI', 'Arial', 'sans-serif'],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.6s ease-out',
-        'slide-up': 'slideUp 0.6s ease-out',
-        'slide-left': 'slideLeft 0.5s ease-out',
-        'float': 'float 3s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s ease-in-out infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        slideLeft: {
-          '0%': { opacity: '0', transform: 'translateX(30px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
+      boxShadow: {
+        card: '0 1px 2px rgba(11,31,69,.06), 0 8px 24px -12px rgba(11,31,69,.18)',
       },
     },
   },
