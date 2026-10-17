@@ -2,7 +2,7 @@ export const SITE_CONFIG = {
   name: 'Çözüm Nakliyat',
   title: 'Adana Şehirler Arası Nakliyat',
   domain: 'sehirlerarasinakliye.org.tr',
-  url: 'https://sehirlerarasinakliye.org.tr',
+  url: 'https://www.sehirlerarasinakliye.org.tr',
   description: 'Adana şehirler arası evden eve nakliyat, sigortalı ve güvenli taşımacılık hizmeti. Çözüm Nakliyat ile Türkiye geneli profesyonel nakliye çözümleri.',
   phone: '0539 328 48 01',
   phoneClean: '05393284801',
