@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: { default: 'Şehirler Arası Nakliyat | BarajTrans', template: '%s | BarajTrans' },
   description: SITE_CONFIG.description,
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
-  verification: { google: 'yJ1e6E8DcR_89j2OkipVkh-dtj4MvptCOBa7WjMpu84' },
+  verification: { google: ['yJ1e6E8DcR_89j2OkipVkh-dtj4MvptCOBa7WjMpu84', 'eKRoFpq8nX_5R139ICVmiDnGmab0_lDOhp5mm7EZTWk'] },
   icons: { icon: '/favicon.png', apple: '/apple-touch-icon.png' },
 }
 
