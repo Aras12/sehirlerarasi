@@ -34,6 +34,9 @@ export default function Footer() {
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-sun-400" /> {SITE_CONFIG.address}</li>
             <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-sun-400" /> {SITE_CONFIG.workingHours}</li>
           </ul>
+          <a href="https://adanafirmarehberi.com.tr/firma/baraj-nakliyat" target="_blank" rel="noopener" title="Turuncu Sayfalar Adana firma rehberi üyesidir" className="mt-5 inline-block">
+            <Image src="/img/genel/turuncu-sayfalar-uyesi.webp" alt="Turuncu Sayfalar üyesidir - Adana firma rehberi" width={360} height={240} className="h-24 w-auto rounded-lg" />
+          </a>
         </div>
         <FootCol title="Hizmetler" links={hizmetler.slice(0, 10).map((h) => ({ href: `/hizmetler/${h.slug}`, label: h.name }))} more={{ href: '/hizmetler', label: 'Tüm hizmetler' }} />
         <FootCol title="Popüler rotalar" links={rotalar.slice(0, 10).map((r) => ({ href: `/rotalar/${r.slug}`, label: `Adana ${r.to} Nakliyat` }))} more={{ href: '/rotalar', label: 'Tüm rotalar' }} />
